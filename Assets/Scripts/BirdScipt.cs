@@ -10,8 +10,8 @@ public class BirdScipt : MonoBehaviour
     public float velocity = 10;
     private Rigidbody2D rb;
     public static int scoreNumber = 0;
-    //public TextMeshProUGUI inGameScoreText;
-    //public GameObject gameOverCanvas;
+    public TextMeshProUGUI inGameScoreText;
+    public GameObject gameOverCanvas;
     public Animator birdAnim;
     public Button TapButton;
     // Start is called before the first frame update
@@ -35,16 +35,16 @@ public class BirdScipt : MonoBehaviour
 	    rb.velocity = Vector2.up * velocity;
     }
 
-   /* private void OnCollisionEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collider2D collision)
     {
         gameOverCanvas.SetActive(true);
         Time.timeScale = 0;
-    }*/
+    }
 
-    /*private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         scoreNumber++;
-    }*/
+    }
 
     public void playAgain()
     {
