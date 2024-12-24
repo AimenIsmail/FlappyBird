@@ -24,18 +24,18 @@ public class BirdScipt : MonoBehaviour
     }
 
     // Update is called once per frame
-   public void Update()
+    public void Update()
     {
         Button btn = TapButton.GetComponent<Button>();
-       btn.onClick.AddListener(TaskOnClick);
-       // inGameScoreText.text = scoreNumber.ToString();
+        btn.onClick.AddListener(TaskOnClick);
+        inGameScoreText.text = scoreNumber.ToString();
     }
-    void TaskOnClick(){
+    public void TaskOnClick(){
 	    birdAnim.Play("BirdFlap");
 	    rb.velocity = Vector2.up * velocity;
     }
 
-    private void OnCollisionEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         gameOverCanvas.SetActive(true);
         Time.timeScale = 0;
