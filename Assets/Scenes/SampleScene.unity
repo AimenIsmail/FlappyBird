@@ -268,12 +268,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a245d8c56f9e6237ac91684c02c558b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 1
+  maxTime: 2
   pipe: {fileID: 8075827484748718844, guid: c7ffb3e2c47286041944cb063ac5203e, type: 3}
   height: 1
   pipeColors:
-  - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0.06542587, b: 1, a: 0}
   - {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &269422535
 GameObject:
@@ -2043,6 +2041,7 @@ MonoBehaviour:
   gameOverCanvas: {fileID: 1668116989}
   birdAnim: {fileID: 1967943826}
   TapButton: {fileID: 1102345595}
+  birdColors: []
 --- !u!1 &2059325901
 GameObject:
   m_ObjectHideFlags: 0

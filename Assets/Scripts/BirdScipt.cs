@@ -14,36 +14,93 @@ public class BirdScipt : MonoBehaviour
     public GameObject gameOverCanvas;
     public Animator birdAnim;
     public Button TapButton;
-    // Start is called before the first frame update
+    public Color[] birdColors;
+    private SpriteRenderer birdSprite;
+    private bool ignoreCollision = false; 
+
     void Start()
     {
+        birdColors = new Color[]
+        {
+            Color.red,
+            Color.green,
+            Color.blue,
+            Color.yellow,
+        };
+
+        //  SpriteRenderer component
+        birdSprite = GetComponent<SpriteRenderer>();
+        if (birdSprite != null)
+        {
+            Color randomBirdColor = birdColors[Random.Range(0, birdColors.Length)];
+            birdSprite.color = randomBirdColor;
+        }
+
         scoreNumber = 0;
         rb = GetComponent<Rigidbody2D>();
         Time.timeScale = 1;
-	    
     }
 
-    // Update is called once per frame
-    public void Update()
+    void Update()
     {
         Button btn = TapButton.GetComponent<Button>();
         btn.onClick.AddListener(TaskOnClick);
         inGameScoreText.text = scoreNumber.ToString();
     }
-    public void TaskOnClick(){
-	    birdAnim.Play("BirdFlap");
-	    rb.velocity = Vector2.up * velocity;
+
+    public void TaskOnClick()
+    {
+        birdAnim.Play("BirdFlap");
+        rb.velocity = Vector2.up * velocity;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        gameOverCanvas.SetActive(true);
-        Time.timeScale = 0;
+        if (ignoreCollision)
+        {
+            return;
+        }
+
+        Renderer pipeRenderer = collision.gameObject.GetComponent<Renderer>();
+        if (pipeRenderer != null)
+        {
+            Color pipeColor = pipeRenderer.material.color;
+
+            if (birdSprite.color == pipeColor)
+            {
+                // Ignore collision and change bird color
+                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+                ignoreCollision = true; 
+                ChangeBirdColor();
+                StartCoroutine(ResetIgnoreCollision()); 
+            }
+            else
+            {
+                // End the game if colors don't match
+                gameOverCanvas.SetActive(true);
+                Time.timeScale = 0;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         scoreNumber++;
+    }
+
+    private void ChangeBirdColor()
+    {
+        if (birdSprite != null && birdColors.Length > 0)
+        {
+            Color newColor = birdColors[Random.Range(0, birdColors.Length)];
+            birdSprite.color = newColor;
+        }
+    }
+
+    private IEnumerator ResetIgnoreCollision()
+    {
+        yield return new WaitForSeconds(0.5f); // Wait before allowing collisions again
+        ignoreCollision = false;
     }
 
     public void playAgain()
