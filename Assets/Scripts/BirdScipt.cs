@@ -24,7 +24,6 @@ public class BirdScipt : MonoBehaviour
         {
             Color.red,
             Color.green,
-            Color.blue,
             Color.yellow,
         };
 
@@ -56,10 +55,6 @@ public class BirdScipt : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (ignoreCollision)
-        {
-            return;
-        }
 
         Renderer pipeRenderer = collision.gameObject.GetComponent<Renderer>();
         if (pipeRenderer != null)
@@ -85,7 +80,22 @@ public class BirdScipt : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        scoreNumber++;
+        if (collision.CompareTag("RedApple"))
+        {
+            // Hide the apple when collected
+            collision.gameObject.SetActive(false);
+        }
+        else if (collision.CompareTag("GreenApple"))
+        {
+            // Hide the apple when collected
+            collision.gameObject.SetActive(false);  
+        }
+        else if (collision.CompareTag("Pipe"))
+        {
+           //Add score passing through pipe
+            scoreNumber++;  
+        }
+        
     }
 
     private void ChangeBirdColor()

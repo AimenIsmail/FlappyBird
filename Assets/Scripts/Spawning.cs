@@ -20,7 +20,6 @@ public class Spawning : MonoBehaviour
         {
             Color.red,
             Color.green,
-            Color.blue,
             Color.yellow,
         };
 
