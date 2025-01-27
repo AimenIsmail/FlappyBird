@@ -84,11 +84,15 @@ public class BirdScipt : MonoBehaviour
         {
             // Hide the apple when collected
             collision.gameObject.SetActive(false);
+            // Temporarily speed up the entire game
+            StartCoroutine(ChangeGameSpeed(1.5f, 15f)); // Increase game speed by 2x for 15 seconds
         }
         else if (collision.CompareTag("GreenApple"))
         {
             // Hide the apple when collected
-            collision.gameObject.SetActive(false);  
+            collision.gameObject.SetActive(false);
+            // Temporarily speed up the entire game
+            StartCoroutine(ChangeGameSpeed(0.5f, 15f)); // Increase game speed by 0.5 for 15 seconds
         }
         else if (collision.CompareTag("Pipe"))
         {
@@ -96,6 +100,19 @@ public class BirdScipt : MonoBehaviour
             scoreNumber++;  
         }
         
+    }
+
+    // Coroutine to change game speed temporarily
+    private IEnumerator ChangeGameSpeed(float newSpeed, float duration)
+    {
+        float originalTimeScale = Time.timeScale; // Save the original time scale
+        Time.timeScale = newSpeed; // Set the new time scale
+        Time.fixedDeltaTime = 0.02f * Time.timeScale; // Adjust fixed time step to match the new time scale
+
+        yield return new WaitForSecondsRealtime(duration); // Wait in real time (ignoring the time scale)
+
+        Time.timeScale = originalTimeScale; // Reset to the original time scale
+        Time.fixedDeltaTime = 0.02f * Time.timeScale; // Restore the fixed time step
     }
 
     private void ChangeBirdColor()
