@@ -17,6 +17,11 @@ public class BirdScipt : MonoBehaviour
     public Color[] birdColors;
     private SpriteRenderer birdSprite;
     private bool ignoreCollision = false; 
+    public Button LaserButton; 
+    public GameObject laserPrefab;
+    public Transform laserSpawnPoint;
+    // public static int NoOfLasers = 5;
+    // public TextMeshProUGUI inGameLaserText;
 
     void Start()
     {
@@ -38,6 +43,10 @@ public class BirdScipt : MonoBehaviour
         scoreNumber = 0;
         rb = GetComponent<Rigidbody2D>();
         Time.timeScale = 1;
+        
+        // Add listeners to the buttons
+        TapButton.onClick.AddListener(TaskOnClick);
+        LaserButton.onClick.AddListener(ShootLaser);
     }
 
     void Update()
@@ -45,6 +54,7 @@ public class BirdScipt : MonoBehaviour
         Button btn = TapButton.GetComponent<Button>();
         btn.onClick.AddListener(TaskOnClick);
         inGameScoreText.text = scoreNumber.ToString();
+        // inGameLaserText.text = NoOfLasers.ToString();
     }
 
     public void TaskOnClick()
@@ -86,6 +96,8 @@ public class BirdScipt : MonoBehaviour
             collision.gameObject.SetActive(false);
             // Temporarily speed up the entire game
             StartCoroutine(ChangeGameSpeed(1.5f, 15f)); // Increase game speed by 2x for 15 seconds
+            //increase the laser 
+            // NoOfLasers = NoOfLasers++;
         }
         else if (collision.CompareTag("GreenApple"))
         {
@@ -128,6 +140,24 @@ public class BirdScipt : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f); // Wait before allowing collisions again
         ignoreCollision = false;
+    }
+
+    // Method to shoot the laser
+    private void ShootLaser()
+    {
+        //decrease the laser 
+        // NoOfLasers = NoOfLasers--;
+        // Use the bird's position to spawn the laser
+        Vector3 spawnPosition = transform.position;
+
+        // Optionally adjust the position slightly (e.g., move it slightly forward relative to the bird)
+        spawnPosition += new Vector3(2f, 0, 0); // Offset to the right
+
+        // Instantiate the laser at the calculated spawn position
+        GameObject lsr = Instantiate(laserPrefab, spawnPosition, Quaternion.identity);
+
+        // Destroy the laser after some time
+        Destroy(lsr, 0.2f);
     }
 
     public void playAgain()
