@@ -17,11 +17,18 @@ public class BirdScipt : MonoBehaviour
     public Color[] birdColors;
     private SpriteRenderer birdSprite;
     private bool ignoreCollision = false; 
+    //Laser
     public Button LaserButton; 
     public GameObject laserPrefab;
     public Transform laserSpawnPoint;
-    // public static int NoOfLasers = 5;
-    // public TextMeshProUGUI inGameLaserText;
+    public static int NoOfLasers ;
+    public TextMeshProUGUI inGameLaserText;
+    //laser bar
+    public Image LaserBar;
+    public float CurrentLasers; 
+    public float MaxLasers = 5;
+    //shield
+    public GameObject shieldPrefab;  
 
     void Start()
     {
@@ -32,7 +39,7 @@ public class BirdScipt : MonoBehaviour
             Color.yellow,
         };
 
-        //  SpriteRenderer component
+        // SpriteRenderer component
         birdSprite = GetComponent<SpriteRenderer>();
         if (birdSprite != null)
         {
@@ -41,6 +48,7 @@ public class BirdScipt : MonoBehaviour
         }
 
         scoreNumber = 0;
+        NoOfLasers = 5;
         rb = GetComponent<Rigidbody2D>();
         Time.timeScale = 1;
         
@@ -53,8 +61,9 @@ public class BirdScipt : MonoBehaviour
     {
         Button btn = TapButton.GetComponent<Button>();
         btn.onClick.AddListener(TaskOnClick);
+        //Update socre and laser values in UI
         inGameScoreText.text = scoreNumber.ToString();
-        // inGameLaserText.text = NoOfLasers.ToString();
+        inGameLaserText.text = NoOfLasers.ToString();
     }
 
     public void TaskOnClick()
@@ -97,12 +106,25 @@ public class BirdScipt : MonoBehaviour
             // Temporarily speed up the entire game
             StartCoroutine(ChangeGameSpeed(1.5f, 15f)); // Increase game speed by 2x for 15 seconds
             //increase the laser 
-            // NoOfLasers = NoOfLasers++;
+            if(NoOfLasers < 5)
+            {
+                NoOfLasers++;
+                CurrentLasers = NoOfLasers;
+                LaserBar.fillAmount = CurrentLasers/MaxLasers;
+            }
         }
         else if (collision.CompareTag("GreenApple"))
         {
             // Hide the apple when collected
             collision.gameObject.SetActive(false);
+
+            // Instantiate the shield at the calculated spawn position
+            GameObject shld = Instantiate(shieldPrefab, transform.position, Quaternion.identity);
+            // Set the shield's parent to the bird so it moves with it
+            shld.transform.SetParent(transform);
+            // Destroy the shield after some time
+            Destroy(shld, 10f);
+
             // Temporarily speed up the entire game
             StartCoroutine(ChangeGameSpeed(0.5f, 15f)); // Increase game speed by 0.5 for 15 seconds
         }
@@ -117,14 +139,18 @@ public class BirdScipt : MonoBehaviour
     // Coroutine to change game speed temporarily
     private IEnumerator ChangeGameSpeed(float newSpeed, float duration)
     {
-        float originalTimeScale = Time.timeScale; // Save the original time scale
-        Time.timeScale = newSpeed; // Set the new time scale
-        Time.fixedDeltaTime = 0.02f * Time.timeScale; // Adjust fixed time step to match the new time scale
-
-        yield return new WaitForSecondsRealtime(duration); // Wait in real time (ignoring the time scale)
-
-        Time.timeScale = originalTimeScale; // Reset to the original time scale
-        Time.fixedDeltaTime = 0.02f * Time.timeScale; // Restore the fixed time step
+        // Save the original time scale
+        float originalTimeScale = Time.timeScale; 
+        // Set the new time scale
+        Time.timeScale = newSpeed; 
+        // Adjust fixed time step to match the new time scale
+        Time.fixedDeltaTime = 0.02f * Time.timeScale; 
+        // Wait in real time (ignoring the time scale)
+        yield return new WaitForSecondsRealtime(duration); 
+        // Reset to the original time scale
+        Time.timeScale = originalTimeScale; 
+        // Restore the fixed time step
+        Time.fixedDeltaTime = 0.02f * Time.timeScale; 
     }
 
     private void ChangeBirdColor()
@@ -138,7 +164,8 @@ public class BirdScipt : MonoBehaviour
 
     private IEnumerator ResetIgnoreCollision()
     {
-        yield return new WaitForSeconds(0.5f); // Wait before allowing collisions again
+        // Wait before allowing collisions again
+        yield return new WaitForSeconds(0.5f); 
         ignoreCollision = false;
     }
 
@@ -146,18 +173,25 @@ public class BirdScipt : MonoBehaviour
     private void ShootLaser()
     {
         //decrease the laser 
-        // NoOfLasers = NoOfLasers--;
-        // Use the bird's position to spawn the laser
-        Vector3 spawnPosition = transform.position;
+        if (NoOfLasers > 0)
+        {
+            //Laser and laserBar decreases
+            NoOfLasers--;
+            CurrentLasers = NoOfLasers;
+            LaserBar.fillAmount = CurrentLasers / MaxLasers;
 
-        // Optionally adjust the position slightly (e.g., move it slightly forward relative to the bird)
-        spawnPosition += new Vector3(2f, 0, 0); // Offset to the right
+            //bird's position to spawn the laser
+            Vector3 spawnPosition = transform.position;
 
-        // Instantiate the laser at the calculated spawn position
-        GameObject lsr = Instantiate(laserPrefab, spawnPosition, Quaternion.identity);
+            // Optionally adjust the position slightly ,Offset to the right
+            spawnPosition += new Vector3(0.8f, 0f, 0.5f); 
 
-        // Destroy the laser after some time
-        Destroy(lsr, 0.2f);
+            // Instantiate the laser at the calculated spawn position
+            GameObject lsr = Instantiate(laserPrefab, spawnPosition, Quaternion.identity);
+
+            // Destroy the laser after some time
+            Destroy(lsr, 0.2f);
+        }
     }
 
     public void playAgain()

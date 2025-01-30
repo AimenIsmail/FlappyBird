@@ -998,7 +998,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &762393152
 RectTransform:
@@ -1108,7 +1108,7 @@ GameObject:
   - component: {fileID: 1102345596}
   - component: {fileID: 1102345595}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonFly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1970,7 +1970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apple: {fileID: 8957477474897044567, guid: 666c92ca0ef41d1d2b10aefa4121e683, type: 3}
-  maxTime: 9.5
+  maxTime: 15
   height: 1
 --- !u!4 &1442266740
 Transform:
@@ -2471,7 +2471,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &1727430022
 RectTransform:
@@ -2831,6 +2831,11 @@ MonoBehaviour:
   LaserButton: {fileID: 1290238804}
   laserPrefab: {fileID: 6497324663992005251, guid: be399788b8377a7fca061069cf5662f5, type: 3}
   laserSpawnPoint: {fileID: 1967943829}
+  inGameLaserText: {fileID: 551053864}
+  LaserBar: {fileID: 642233372}
+  CurrentLasers: 1
+  MaxLasers: 5
+  shieldPrefab: {fileID: 4821333728629382894, guid: 37233554d021f47f8a65f20c2e900386, type: 3}
 --- !u!1 &2059325901
 GameObject:
   m_ObjectHideFlags: 0
