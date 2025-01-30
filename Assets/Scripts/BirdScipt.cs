@@ -28,7 +28,8 @@ public class BirdScipt : MonoBehaviour
     public float CurrentLasers; 
     public float MaxLasers = 5;
     //shield
-    public GameObject shieldPrefab;  
+    public GameObject shieldPrefab; 
+    private GameObject activeShield; 
 
     void Start()
     {
@@ -64,8 +65,13 @@ public class BirdScipt : MonoBehaviour
         //Update socre and laser values in UI
         inGameScoreText.text = scoreNumber.ToString();
         inGameLaserText.text = NoOfLasers.ToString();
+        ///shield rotation
+        if (activeShield != null)
+        {
+            activeShield.transform.Rotate(100f * Time.deltaTime, 100f * Time.deltaTime, 100f * Time.deltaTime); 
+        }
     }
-
+    
     public void TaskOnClick()
     {
         birdAnim.Play("BirdFlap");
@@ -76,6 +82,7 @@ public class BirdScipt : MonoBehaviour
     {
 
         Renderer pipeRenderer = collision.gameObject.GetComponent<Renderer>();
+        
         if (pipeRenderer != null)
         {
             Color pipeColor = pipeRenderer.material.color;
@@ -96,15 +103,20 @@ public class BirdScipt : MonoBehaviour
             }
         }
     }
+     
 
+     ////////////////////Colliders triggering//////////////////
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("RedApple"))
         {
             // Hide the apple when collected
             collision.gameObject.SetActive(false);
-            // Temporarily speed up the entire game
-            StartCoroutine(ChangeGameSpeed(1.5f, 15f)); // Increase game speed by 2x for 15 seconds
+            if (activeShield == null)
+            {
+                // Temporarily speed up the entire game
+                StartCoroutine(ChangeGameSpeed(1.5f, 15f)); // Increase game speed by 2x for 15 seconds
+            }
             //increase the laser 
             if(NoOfLasers < 5)
             {
@@ -118,17 +130,28 @@ public class BirdScipt : MonoBehaviour
             // Hide the apple when collected
             collision.gameObject.SetActive(false);
 
-            // Instantiate the shield at the calculated spawn position
-            GameObject shld = Instantiate(shieldPrefab, transform.position, Quaternion.identity);
-            // Set the shield's parent to the bird so it moves with it
-            shld.transform.SetParent(transform);
-            // Destroy the shield after some time
-            Destroy(shld, 10f);
+            // If a shield is already active, destroy it first
+            if (activeShield != null)
+            {
+                Destroy(activeShield);
+            }
 
-            // Temporarily speed up the entire game
-            StartCoroutine(ChangeGameSpeed(0.5f, 15f)); // Increase game speed by 0.5 for 15 seconds
+            // Instantiate the shield at the bird's position
+            activeShield = Instantiate(shieldPrefab, transform.position, Quaternion.identity);
+
+            // Set the shield's parent to the bird so it moves with it
+            activeShield.transform.SetParent(transform);
+
+            // Disable collisions with pipes
+            IgnorePipeCollisions(true);
+
+            // Destroy the shield after 10 seconds
+            Destroy(activeShield, 8f);
+
+            // Temporarily slow down the game
+            StartCoroutine(ChangeGameSpeed(0.5f, 15f));
         }
-        else if (collision.CompareTag("Pipe"))
+        else if(collision.CompareTag("Pipe"))
         {
            //Add score passing through pipe
             scoreNumber++;  
@@ -136,10 +159,10 @@ public class BirdScipt : MonoBehaviour
         
     }
 
-    // Coroutine to change game speed temporarily
+    ////////////////////////  to change game speed temporarily/////////////////////////////////////
     private IEnumerator ChangeGameSpeed(float newSpeed, float duration)
     {
-        // Save the original time scale
+        // original time scale
         float originalTimeScale = Time.timeScale; 
         // Set the new time scale
         Time.timeScale = newSpeed; 
@@ -152,7 +175,7 @@ public class BirdScipt : MonoBehaviour
         // Restore the fixed time step
         Time.fixedDeltaTime = 0.02f * Time.timeScale; 
     }
-
+    //////////////////Bird color chang on passing through same color pipe & ignor collision/////////////////
     private void ChangeBirdColor()
     {
         if (birdSprite != null && birdColors.Length > 0)
@@ -169,7 +192,7 @@ public class BirdScipt : MonoBehaviour
         ignoreCollision = false;
     }
 
-    // Method to shoot the laser
+    ///////////////////////////////to shoot the laser spawn laser and manage bar////////////
     private void ShootLaser()
     {
         //decrease the laser 
@@ -183,16 +206,35 @@ public class BirdScipt : MonoBehaviour
             //bird's position to spawn the laser
             Vector3 spawnPosition = transform.position;
 
-            // Optionally adjust the position slightly ,Offset to the right
+            // laser position Offset to the right
             spawnPosition += new Vector3(0.8f, 0f, 0.5f); 
 
-            // Instantiate the laser at the calculated spawn position
+            // Instantiate the laser at position
             GameObject lsr = Instantiate(laserPrefab, spawnPosition, Quaternion.identity);
 
             // Destroy the laser after some time
             Destroy(lsr, 0.2f);
         }
     }
+
+
+    //////////////////For Shield //////////////////////////////
+    private void IgnorePipeCollisions(bool ignore)
+    {
+        GameObject[] pipes = GameObject.FindGameObjectsWithTag("Pipe");
+
+        foreach (GameObject pipe in pipes)
+        {
+            Collider2D pipeCollider = pipe.GetComponent<Collider2D>();
+            Collider2D birdCollider = GetComponent<Collider2D>();
+
+            if (pipeCollider != null && birdCollider != null)
+            {
+                Physics2D.IgnoreCollision(birdCollider, pipeCollider, ignore);
+            }
+        }
+    }
+
 
     public void playAgain()
     {
