@@ -27,6 +27,7 @@ public class BirdScipt : MonoBehaviour
     public Image LaserBar;
     public float CurrentLasers; 
     public float MaxLasers = 5;
+    public Transform ShootTrans;
     //shield
     public GameObject shieldPrefab; 
     private GameObject activeShield; 
@@ -210,7 +211,7 @@ public class BirdScipt : MonoBehaviour
             spawnPosition += new Vector3(0.8f, 0f, 0.5f); 
 
             // Instantiate the laser at position
-            GameObject lsr = Instantiate(laserPrefab, spawnPosition, Quaternion.identity);
+            GameObject lsr = Instantiate(laserPrefab, ShootTrans.position, ShootTrans.rotation);
 
             // Destroy the laser after some time
             Destroy(lsr, 0.2f);
