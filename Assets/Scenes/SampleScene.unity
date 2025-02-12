@@ -1422,9 +1422,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b87421529570f4d9f1ba927457ced8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 10
+  maxTime: 50
   enemyPrefab: {fileID: 4126101931639259258, guid: f580dd5303d341e519f70ad771a54f7c, type: 3}
-  enemySpeed: 3
+  enemySpeed: 2
   playerBird: {fileID: 1967943829}
 --- !u!4 &1157873599
 Transform:
