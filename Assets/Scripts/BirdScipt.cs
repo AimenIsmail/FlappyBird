@@ -81,7 +81,6 @@ public class BirdScipt : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         Renderer pipeRenderer = collision.gameObject.GetComponent<Renderer>();
         
         if (pipeRenderer != null)

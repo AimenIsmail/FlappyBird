@@ -30,14 +30,15 @@ public class Enemy : MonoBehaviour
 
     void SpawnEnemy()
     {
-        // Spawn an enemy at the same Y and Z as Flappy Bird
+        // Spawn an enemy 
         currentEnemy = Instantiate(enemyPrefab);
-        currentEnemy.transform.position = new Vector3((transform.position.x)*, playerBird.position.y, playerBird.position.z);
+        currentEnemy.transform.position = new Vector3((transform.position.x)*3, playerBird.position.y, playerBird.position.z);
+        
     }
 
     void MoveEnemy()
     {
-        if (playerBird == null) return; // Ensure player bird exists
+        if (playerBird == null) return; // player bird exists
 
         // Move the enemy 
         float step =   Time.deltaTime/enemySpeed; //  speed
@@ -46,21 +47,15 @@ public class Enemy : MonoBehaviour
             new Vector3(playerBird.position.x,playerBird.position.y, currentEnemy.transform.position.z), 
             step);
     }
-
-    public void DestroyEnemy()
-    {
-        if (currentEnemy != null)
-        {
-            Destroy(currentEnemy);
-            currentEnemy = null;
-        }
-    }
+   
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       if (collision.CompareTag("Laser")) // If hit by laser
+       if (collision.CompareTag("Laser")) // hit by laser
         {
-            DestroyEnemy(); // Destroy enemy
+            Destroy(currentEnemy);
+            currentEnemy = null;
+            Debug.Log("Enemy hit by laser!"); 
         }
     }
 }
