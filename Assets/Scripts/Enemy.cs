@@ -34,6 +34,18 @@ public class Enemy : MonoBehaviour
         currentEnemy = Instantiate(enemyPrefab);
         currentEnemy.transform.position = new Vector3((transform.position.x)*3, playerBird.position.y, playerBird.position.z);
         
+        // Ensure enemy has a Rigidbody2D (if not already added)
+        if (currentEnemy.GetComponent<Rigidbody2D>() == null)
+        {
+            Rigidbody2D rb = currentEnemy.AddComponent<Rigidbody2D>();
+            rb.isKinematic = true; // So it doesn't fall
+        }
+
+        // Ensure enemy has a Collider2D (if not already added)
+        if (currentEnemy.GetComponent<Collider2D>() == null)
+        {
+            currentEnemy.AddComponent<BoxCollider2D>().isTrigger = true;
+        }
     }
 
     void MoveEnemy()
@@ -46,16 +58,5 @@ public class Enemy : MonoBehaviour
             currentEnemy.transform.position, 
             new Vector3(playerBird.position.x,playerBird.position.y, currentEnemy.transform.position.z), 
             step);
-    }
-   
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-       if (collision.CompareTag("Laser")) // hit by laser
-        {
-            Destroy(currentEnemy);
-            currentEnemy = null;
-            Debug.Log("Enemy hit by laser!"); 
-        }
     }
 }
