@@ -61,6 +61,7 @@ public class BirdScipt : MonoBehaviour
 
     void Update()
     {
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         Button btn = TapButton.GetComponent<Button>();
         btn.onClick.AddListener(TaskOnClick);
         //Update socre and laser values in UI
@@ -69,7 +70,7 @@ public class BirdScipt : MonoBehaviour
         ///shield rotation
         if (activeShield != null)
         {
-            activeShield.transform.Rotate(100f * Time.deltaTime, 100f * Time.deltaTime, 100f * Time.deltaTime); 
+            activeShield.transform.Rotate(100f * Time.deltaTime, 100f * Time.deltaTime, 0f); 
         }
     }
     
