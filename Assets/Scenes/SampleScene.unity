@@ -306,7 +306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 4.92, y: -177.18}
+  m_AnchoredPosition: {x: 4.919998, y: -177.18}
   m_SizeDelta: {x: 389.79, y: 24.23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &269422535
@@ -1228,8 +1228,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 82.87502, y: -10.412}
-  m_SizeDelta: {x: 1176, y: 210.4}
+  m_AnchoredPosition: {x: 82.87502, y: -0.018468}
+  m_SizeDelta: {x: 1176, y: 189.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &642233372
 MonoBehaviour:
@@ -1354,7 +1354,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1887,7 +1887,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 7.4, y: -123.41}
+  m_AnchoredPosition: {x: 7.4000015, y: -123.41}
   m_SizeDelta: {x: 428.64, y: 172.15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1303278185
@@ -2092,7 +2092,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 17.550001, y: 761.4}
+  m_AnchoredPosition: {x: 17.549988, y: 761.4}
   m_SizeDelta: {x: -967.67, y: -2040.77}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1378177796
@@ -3240,7 +3240,7 @@ Transform:
   m_GameObject: {fileID: 1967943825}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.31, y: 0.31, z: 0}
+  m_LocalPosition: {x: -0.07, y: 1.05, z: 0}
   m_LocalScale: {x: 0.9181, y: 1.0374824, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3301,6 +3301,8 @@ MonoBehaviour:
   MaxLasers: 5
   ShootTrans: {fileID: 443089245}
   shieldPrefab: {fileID: 4821333728629382894, guid: 37233554d021f47f8a65f20c2e900386, type: 3}
+  loadingSlider: {fileID: 695002886}
+  loadingSpeed: 0.5
 --- !u!1 &2059325901
 GameObject:
   m_ObjectHideFlags: 0
