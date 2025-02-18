@@ -31,6 +31,10 @@ public class BirdScipt : MonoBehaviour
     //shield
     public GameObject shieldPrefab; 
     private GameObject activeShield; 
+    // Loading Slider
+    public Slider loadingSlider;
+    public float loadingSpeed = 0.5f; // Adjust speed of filling
+    private bool gameStarted = false;
 
     void Start()
     {
@@ -52,15 +56,25 @@ public class BirdScipt : MonoBehaviour
         scoreNumber = 0;
         NoOfLasers = 5;
         rb = GetComponent<Rigidbody2D>();
-        Time.timeScale = 1;
         
-        // Add listeners to the buttons
+        Time.timeScale = 1;
+
+        // Freeze the bird at start
+        rb.gravityScale = 0;
+        rb.velocity = Vector2.zero; 
+
+        // Add listeners to buttons
         TapButton.onClick.AddListener(TaskOnClick);
         LaserButton.onClick.AddListener(ShootLaser);
-    }
+
+        // Start the loading coroutine
+        StartCoroutine(FillSliderAndStartGame());
+}
 
     void Update()
     {
+        if (!gameStarted) return; // Don't start the game until slider fills
+
         transform.rotation = Quaternion.Euler(0, 0, 0);
         Button btn = TapButton.GetComponent<Button>();
         btn.onClick.AddListener(TaskOnClick);
@@ -73,9 +87,30 @@ public class BirdScipt : MonoBehaviour
             activeShield.transform.Rotate(100f * Time.deltaTime, 100f * Time.deltaTime, 100f * Time.deltaTime); 
         }
     }
+
+    IEnumerator FillSliderAndStartGame()
+    {
+        loadingSlider.value = 0f;
+
+        while (loadingSlider.value < 1)
+        {
+            loadingSlider.value += loadingSpeed * Time.deltaTime;
+            yield return null;
+        }
+
+        // Hide slider after loading
+        loadingSlider.gameObject.SetActive(false);
+
+        // Enable bird physics after loading
+        rb.gravityScale = 0.5f;
+
+        gameStarted = true; // Now allow the game to start
+    }
     
     public void TaskOnClick()
     {
+        if (!gameStarted) return;
+
         birdAnim.Play("BirdFlap");
         rb.velocity = Vector2.up * velocity;
     }
@@ -147,7 +182,7 @@ public class BirdScipt : MonoBehaviour
             IgnorePipeCollisions(true);
 
             // Destroy the shield after 10 seconds
-            Destroy(activeShield, 8f);
+            Destroy(activeShield, 6f);
 
             // Temporarily slow down the game
             StartCoroutine(ChangeGameSpeed(0.5f, 15f));
@@ -196,6 +231,7 @@ public class BirdScipt : MonoBehaviour
     ///////////////////////////////to shoot the laser spawn laser and manage bar////////////
     private void ShootLaser()
     {
+        if (!gameStarted) return;
         //decrease the laser 
         if (NoOfLasers > 0)
         {

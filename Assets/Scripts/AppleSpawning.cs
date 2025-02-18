@@ -7,7 +7,7 @@ public class AppleSpawning : MonoBehaviour
     public GameObject apple;
     public float maxTime = 1f;
     private float timer = 0f;
-    public float height;
+    public float height = 0.5f;
 
     // Start is called before the first frame update
     void Start()

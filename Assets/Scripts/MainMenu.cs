@@ -14,4 +14,12 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
         Debug.Log("Game is exiting");
     }
+    public void Back()
+    {
+        SceneManager.LoadSceneAsync(0);
+    }
+    public void Rules()
+    {
+        SceneManager.LoadSceneAsync(2);
+    }
 }
