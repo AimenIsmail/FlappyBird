@@ -7,7 +7,8 @@ public class AppleSpawning : MonoBehaviour
     public GameObject apple;
     public float maxTime = 1f;
     private float timer = 0f;
-    public float height = 0.5f;
+    public float height ;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -32,8 +33,7 @@ public class AppleSpawning : MonoBehaviour
         GameObject newApple = Instantiate(apple);
 
         // Set a random spawn position in world space
-        Vector3 spawnPosition = new Vector3(0, Random.Range(-height, height), 0);
-        newApple.transform.position = spawnPosition;
+        newApple.transform.position = new Vector3(transform.position.x*2, Random.Range(-height, height), 0);
        
         // Destroy the Apple 
         Destroy(newApple, 15f);

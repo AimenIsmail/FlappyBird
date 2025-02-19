@@ -173,7 +173,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 2408}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -897,8 +897,8 @@ Transform:
   m_GameObject: {fileID: 520155947}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0958, y: -0.2019, z: 0}
-  m_LocalScale: {x: 0.98297733, y: 0.351105, z: 1}
+  m_LocalPosition: {x: -0.3273, y: 0.6832, z: 0}
+  m_LocalScale: {x: 0.39886513, y: 0.29579306, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1406,10 +1406,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 2408}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2052,8 +2052,8 @@ Transform:
   m_GameObject: {fileID: 1358380782}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0403, y: 5.65, z: 0}
-  m_LocalScale: {x: 5.259086, y: 1.0295, z: 1}
+  m_LocalPosition: {x: -0.3296, y: 5.65, z: 0}
+  m_LocalScale: {x: 2.2033334, y: 1.0295, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2092,7 +2092,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 17.549988, y: 761.4}
+  m_AnchoredPosition: {x: 17.550049, y: 761.4}
   m_SizeDelta: {x: -967.67, y: -2040.77}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1378177796
@@ -2223,7 +2223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apple: {fileID: 1382148470901344587, guid: a8dc147bf5f539c7dbc332e23883fb7c, type: 3}
   maxTime: 5
-  height: 0.3
+  height: 1
 --- !u!4 &1399100162
 Transform:
   m_ObjectHideFlags: 0
@@ -2404,7 +2404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apple: {fileID: 8957477474897044567, guid: 666c92ca0ef41d1d2b10aefa4121e683, type: 3}
   maxTime: 15
-  height: 0.5
+  height: 1
 --- !u!4 &1442266740
 Transform:
   m_ObjectHideFlags: 0
@@ -2738,7 +2738,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 2408}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2915,8 +2915,8 @@ Transform:
   m_GameObject: {fileID: 1697763379}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0299, y: -4.4165, z: 0}
-  m_LocalScale: {x: 5.301779, y: 1.0295, z: 1}
+  m_LocalPosition: {x: -0.311, y: -4.4165, z: 0}
+  m_LocalScale: {x: 2.1751301, y: 1.0295, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
