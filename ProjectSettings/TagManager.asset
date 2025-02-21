@@ -9,6 +9,7 @@ TagManager:
   - RedApple
   - Laser
   - Enemy
+  - Audio
   layers:
   - Default
   - TransparentFX

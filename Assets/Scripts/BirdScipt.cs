@@ -35,6 +35,13 @@ public class BirdScipt : MonoBehaviour
     public Slider loadingSlider;
     public float loadingSpeed = 0.5f; // Adjust speed of filling
     private bool gameStarted = false;
+    //Audio
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     void Start()
     {
@@ -112,6 +119,7 @@ public class BirdScipt : MonoBehaviour
         if (!gameStarted) return;
 
         birdAnim.Play("BirdFlap");
+        // audioManager.PlayFlapSound();
         rb.velocity = Vector2.up * velocity;
     }
 
@@ -134,6 +142,7 @@ public class BirdScipt : MonoBehaviour
             else
             {
                 // End the game if colors don't match
+                audioManager.PlaySFX(audioManager.GameOver);
                 gameOverCanvas.SetActive(true);
                 Time.timeScale = 0;
             }
@@ -146,6 +155,7 @@ public class BirdScipt : MonoBehaviour
     {
         if (collision.CompareTag("RedApple"))
         {
+            audioManager.PlaySFX(audioManager.Eat);
             // Hide the apple when collected
             collision.gameObject.SetActive(false);
             if (activeShield == null)
@@ -163,6 +173,8 @@ public class BirdScipt : MonoBehaviour
         }
         else if (collision.CompareTag("GreenApple"))
         {
+            //Audio voice
+            audioManager.PlaySFX(audioManager.Eat);
             // Hide the apple when collected
             collision.gameObject.SetActive(false);
 
