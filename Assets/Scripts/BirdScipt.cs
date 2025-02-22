@@ -111,7 +111,7 @@ public class BirdScipt : MonoBehaviour
         // Enable bird physics after loading
         rb.gravityScale = 0.5f;
 
-        gameStarted = true; // Now allow the game to start
+        gameStarted = true; //  game to start
     }
     
     public void TaskOnClick()
@@ -119,7 +119,6 @@ public class BirdScipt : MonoBehaviour
         if (!gameStarted) return;
 
         birdAnim.Play("BirdFlap");
-        // audioManager.PlayFlapSound();
         rb.velocity = Vector2.up * velocity;
     }
 
@@ -247,6 +246,7 @@ public class BirdScipt : MonoBehaviour
         //decrease the laser 
         if (NoOfLasers > 0)
         {
+            audioManager.PlaySFX(audioManager.LaserShot);
             //Laser and laserBar decreases
             NoOfLasers--;
             CurrentLasers = NoOfLasers;
