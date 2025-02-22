@@ -15,11 +15,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip GameOver;
 
     ///////////Sound Button
-    public Button musicToggleButton;  // Reference to UI Button
-    public Sprite musicOnSprite;      // Sprite for music ON
-    public Sprite musicOffSprite;     // Sprite for music OFF
-    private Image buttonImage;        // UI Image component on the button
-    private bool isMusicOn = true;    // Track music state
+    public Button musicToggleButton;  
+    public Sprite musicOnSprite;      //  music ON
+    public Sprite musicOffSprite;     // music OFF
+    private Image buttonImage;        
+    private bool isMusicOn = true;    
 
 
     private void Start()

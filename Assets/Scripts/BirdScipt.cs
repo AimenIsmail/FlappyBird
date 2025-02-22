@@ -91,7 +91,7 @@ public class BirdScipt : MonoBehaviour
         ///shield rotation
         if (activeShield != null)
         {
-            activeShield.transform.Rotate(100f * Time.deltaTime, 100f * Time.deltaTime, 100f * Time.deltaTime); 
+            activeShield.transform.Rotate(0f, 0f, 100f * Time.deltaTime); 
         }
     }
 
