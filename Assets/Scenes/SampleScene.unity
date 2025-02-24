@@ -1757,7 +1757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b87421529570f4d9f1ba927457ced8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 30
+  maxTime: 50
   enemyPrefab: {fileID: 4126101931639259258, guid: f580dd5303d341e519f70ad771a54f7c, type: 3}
   enemySpeed: 2
   playerBird: {fileID: 1967943829}
@@ -2406,7 +2406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apple: {fileID: 1382148470901344587, guid: a8dc147bf5f539c7dbc332e23883fb7c, type: 3}
-  maxTime: 5
+  maxTime: 15
   height: 1
 --- !u!4 &1399100162
 Transform:
@@ -2587,7 +2587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apple: {fileID: 8957477474897044567, guid: 666c92ca0ef41d1d2b10aefa4121e683, type: 3}
-  maxTime: 15
+  maxTime: 30
   height: 1
 --- !u!4 &1442266740
 Transform:

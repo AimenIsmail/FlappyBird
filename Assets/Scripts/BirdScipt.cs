@@ -80,21 +80,23 @@ public class BirdScipt : MonoBehaviour
 
     void Update()
     {
-        if (!gameStarted) return; // Don't start the game until slider fills
-
+        if (!gameStarted) return; //  during slider fills
+        //bird rotation
         transform.rotation = Quaternion.Euler(0, 0, 0);
         Button btn = TapButton.GetComponent<Button>();
         btn.onClick.AddListener(TaskOnClick);
         //Update socre and laser values in UI
         inGameScoreText.text = scoreNumber.ToString();
         inGameLaserText.text = NoOfLasers.ToString();
-        ///shield rotation
+        ///shield rotation along z axis
         if (activeShield != null)
         {
             activeShield.transform.Rotate(0f, 0f, 100f * Time.deltaTime); 
         }
     }
 
+
+    //////////////////////////slider//////////////////////////
     IEnumerator FillSliderAndStartGame()
     {
         loadingSlider.value = 0f;
@@ -107,13 +109,13 @@ public class BirdScipt : MonoBehaviour
 
         // Hide slider after loading
         loadingSlider.gameObject.SetActive(false);
-
-        // Enable bird physics after loading
+        // Enable bird physics
         rb.gravityScale = 0.5f;
-
-        gameStarted = true; //  game to start
+        //  game to start
+        gameStarted = true; 
     }
-    
+
+    ////////////////////////////Bird Fly////////////////////
     public void TaskOnClick()
     {
         if (!gameStarted) return;
@@ -122,6 +124,7 @@ public class BirdScipt : MonoBehaviour
         rb.velocity = Vector2.up * velocity;
     }
 
+    ///////////////////////Collison handaling/////////////////////////
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Renderer pipeRenderer = collision.gameObject.GetComponent<Renderer>();
@@ -136,6 +139,7 @@ public class BirdScipt : MonoBehaviour
                 Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
                 ignoreCollision = true; 
                 ChangeBirdColor();
+                scoreNumber+=5;
                 StartCoroutine(ResetIgnoreCollision()); 
             }
             else
@@ -159,8 +163,8 @@ public class BirdScipt : MonoBehaviour
             collision.gameObject.SetActive(false);
             if (activeShield == null)
             {
-                // Temporarily speed up the entire game
-                StartCoroutine(ChangeGameSpeed(1.5f, 15f)); // Increase game speed by 2x for 15 seconds
+                // Temporarily speed up the entire game ( Increase game speed by 2x for 15 seconds)
+                StartCoroutine(ChangeGameSpeed(1.5f, 15f)); 
             }
             //increase the laser 
             if(NoOfLasers < 5)
@@ -185,16 +189,12 @@ public class BirdScipt : MonoBehaviour
 
             // Instantiate the shield at the bird's position
             activeShield = Instantiate(shieldPrefab, transform.position, Quaternion.identity);
-
             // Set the shield's parent to the bird so it moves with it
             activeShield.transform.SetParent(transform);
-
             // Disable collisions with pipes
             IgnorePipeCollisions(true);
-
             // Destroy the shield after 10 seconds
             Destroy(activeShield, 6f);
-
             // Temporarily slow down the game
             StartCoroutine(ChangeGameSpeed(0.5f, 15f));
         }
@@ -254,13 +254,10 @@ public class BirdScipt : MonoBehaviour
 
             //bird's position to spawn the laser
             Vector3 spawnPosition = transform.position;
-
-            // laser position Offset to the right
+            // laser Offset to the right
             spawnPosition += new Vector3(0.8f, 0f, 0.5f); 
-
             // Instantiate the laser at position
             GameObject lsr = Instantiate(laserPrefab, ShootTrans.position, ShootTrans.rotation);
-
             // Destroy the laser after some time
             Destroy(lsr, 0.2f);
         }
@@ -284,7 +281,7 @@ public class BirdScipt : MonoBehaviour
         }
     }
 
-
+    ///////////////////Scene load//////////////////
     public void playAgain()
     {
         SceneManager.LoadScene(1);

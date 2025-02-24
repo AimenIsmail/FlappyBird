@@ -60,7 +60,6 @@ public class Spawning : MonoBehaviour
             // Store the color in the pipe's tag for reference
             newpipe.tag = randomColor.ToString();
         }
-
         // Destroy the pipe after some time
         Destroy(newpipe, 15f);
     }

@@ -33,30 +33,14 @@ public class Enemy : MonoBehaviour
         // Spawn an enemy 
         currentEnemy = Instantiate(enemyPrefab);
         currentEnemy.transform.position = new Vector3((transform.position.x)*3, playerBird.position.y, playerBird.position.z);
-        
-        // Ensure enemy has a Rigidbody2D (if not already added)
-        if (currentEnemy.GetComponent<Rigidbody2D>() == null)
-        {
-            Rigidbody2D rb = currentEnemy.AddComponent<Rigidbody2D>();
-            rb.isKinematic = true; // So it doesn't fall
-        }
-
-        // Ensure enemy has a Collider2D (if not already added)
-        if (currentEnemy.GetComponent<Collider2D>() == null)
-        {
-            currentEnemy.AddComponent<BoxCollider2D>().isTrigger = true;
-        }
     }
 
     void MoveEnemy()
     {
         if (playerBird == null) return; // player bird exists
-
-        // Move the enemy 
+        //  enemy movement
         float step =   Time.deltaTime/enemySpeed; //  speed
-        currentEnemy.transform.position = Vector3.MoveTowards(
-            currentEnemy.transform.position, 
-            new Vector3(playerBird.position.x,playerBird.position.y, currentEnemy.transform.position.z), 
-            step);
+        currentEnemy.transform.position = Vector3.MoveTowards(currentEnemy.transform.position, 
+            new Vector3(playerBird.position.x,playerBird.position.y, currentEnemy.transform.position.z), step);
     }
 }
